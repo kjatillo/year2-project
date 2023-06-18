@@ -1,0 +1,78 @@
+<div class="container pb-3 text-center">
+    <div id="advance-search" style="font-size: 1em;">
+        <a data-bs-toggle="collapse" data-bs-target="#advanceSearch" style="text-decoration: none;" class="btn btn-primary">
+            Advanced Search <i class="fa fa-angle-down"></i>
+        </a>
+    </div>
+</div>
+
+<div class="collapse" id="advanceSearch">
+    <div class="container">
+        <main role="main" class="container">
+            <form method="GET" action="{% url 'search:advanced_search_result' %}">
+                <div class="form-row my-3">
+                    <div class="form-group col-12">
+                        <div class="input-group">
+                            <input class="form-control" type="search" name="service_contains"
+                                placeholder="Service title..." />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row my-3">
+                    <div class="form-group col-12">
+                        <div class="input-group">
+                            <input class="form-control py-2" type="search" name="service_provider_contains"
+                                placeholder="Service provider..." />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row my-3">
+                    <div class="form-group col-12">
+                        <div class="input-group">
+                            <input class="form-control py-2" type="search" name="service_or_provider"
+                                placeholder="Service title or provider..." />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group col-md-4 my-3">
+                    <label for="category" class="pb-2">Category</label>
+                    <select id="category" class="form-control py-2" name="category">
+                        <option selected>---</option>
+                        {% for category in category_links %}
+                        <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-row row my-3">
+                    <div class="form-group col-md-2 col-lg-2">
+                        <label for="priceMin">Price Min</label>
+                        <input type="number" min="1" step="any" class="form-control" id="priceMin" name="price_min">
+                    </div>
+
+                    <div class="form-group col-md-2 col-lg-2">
+                        <label class="mt-sm-1" for="priceMax">Price Max</label>
+                        <input type="number" min="1" step="any" class="form-control" id="priceMax" name="price_max">
+                    </div>
+                </div>
+
+                <div class="form-row row my-3">
+                    <div class="form-group col-md-2 col-lg-2">
+                        <label for="dateAddedMin">Date Added Min</label>
+                        <input type="date" class="form-control" id="dateAddedMin" name="date_min">
+                    </div>
+
+                    <div class="form-group col-md-2 col-lg-2">
+                        <label class="mt-sm-1" for="dateAddedMax">Date Added Max</label>
+                        <input type="date" class="form-control" id="dateAddedMax" name="date_max">
+                    </div>
+                </div>
+        
+                <button type="submit" class="btn btn-primary mt-3 mb-5">Search</button>
+            </form>
+        </main>
+    </div>
+</div>

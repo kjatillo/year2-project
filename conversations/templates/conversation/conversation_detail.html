@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+{% block title %}
+    Inbox - Message Detail
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4 mb-lg-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-primary mb-2">Inbox</p>
+            <h2 class="fw-bold">Message detail</h2>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center gap-0">
+        <div class="col-md-6 col-xl-8">
+            <div class="card">
+                {% for message in conversation.messages.all %}
+                <div class="card-body text-center d-flex flex-column {% if message.created_by == request.user %} align-items-end {% else %} align-items-start {% endif %}">
+                    <div class="px-5 py-3 flex rounded-4 {% if message.created_by == request.user %}bg-primary text-white me-3 {% else %}bg-secondary text-white ms-3 {% endif %}">
+                        <div id="latestMessage">
+                            <p class="mb-4"><strong>{{ message.created_by.username }}</strong> | {{ message.created_at | naturaltime }}</p>
+                            <p>{{ message.content }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div>
+                <form method="POST">
+                    <p>
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                    </p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-primary">Send Message &nbsp<i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        <a href="{% url 'conversation:inbox' %}" class="btn btn-secondary">Cancel</a> 
+                        <a href="{% url 'conversation:delete_conversation' conversation.id %}" class="btn btn-danger ms-auto">Delete Conversation</a> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+</div>
+{% endblock %}

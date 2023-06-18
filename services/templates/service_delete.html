@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Service
+{% endblock title %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-3">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2 class="fw-bold">Delete Service</h2>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-xl-6">
+                <div class="card border-0">
+                    <div class="card-body text-center d-flex flex-column align-items-center">
+                        <form action="" method="post">{% csrf_token %}
+                            <div class="alert alert-danger">
+                                You are about to delete <b>{{ service.name }}</b> permanently.
+                            </div>
+                            <p>This process cannot be reverted. Are you sure you want continue?</p>
+                            
+                            <div class="mt-5"> 
+                                <button class="btn btn-danger mx-3" type="submit">Delete Service</button>
+                            <a href="{% url 'home' %}" type="button" class="btn btn-secondary mx-3">Cancel</a> 
+                            </div>  
+                        </form>           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

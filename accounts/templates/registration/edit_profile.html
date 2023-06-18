@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Edit User Profile
+{% endblock %}
+
+{% block content %}
+<section>
+<div class="container py-5">
+    <div class="row mb-4 mb-lg-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-primary mb-2">Edit Profile</p>
+            <h2 class="fw-bold">Change your details</h2>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-xl-4">
+            <div class="card">
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                    <form method="POST" enctype="multipart/form-data">
+                        <p>
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                        </p>
+                        <button type="submit" class="btn btn-primary d-block w-100 mt-4">Save Changes</button>
+                        <a href="{% url 'view_profile' user.username %}" class="btn btn-secondary w-100 mt-3 mb-4">Cancel</a> 
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock content %}

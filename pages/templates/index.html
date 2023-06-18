@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+<main class = "container px-0 mw-100 text-center">
+  <div id = "carouselExampleControls" class = "carousel slide carousel-fade" data-bs-ride = "carousel">
+      <div class = "carousel-inner">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active"></button>
+          <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1"></button>
+          <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2"></button>
+          <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="3"></button>
+          <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="4"></button>
+          <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="5"></button>
+        </div>
+        <div class = "carousel-item active" data-bs-interval = "5000">
+          <img src = "{% static 'images/signup2day.jpg' %}" class = "d-block w-100 carousel-image" alt = "carousel-1">
+          <div class = "carousel-caption">
+            <h3>Sign Up Today</h3>
+            <p>Become a service provider in a few easy steps!</p>
+            <a class = "btn btn-primary my-3" href = "{% url 'signup' %}">Sign Up</a>
+          </div>
+        </div>
+        {% for category in category_links %}
+        {% if category.name == 'Graphics & Design' %}
+        <div class = "carousel-item" data-bs-interval = "5000">
+          <img src = "{% static 'images/graphicsanddesign.jpg' %}" class = "d-block w-100 carousel-image" alt = "carousel-2">
+          <div class = "carousel-caption">
+            <h3>Graphics & Design</h3>
+            <a class = "btn btn-primary my-3" href = "{{ category.get_absolute_url }}">Browse Services</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if category.name == 'Music & Audio' %}
+        <div class = "carousel-item" data-bs-interval = "5000">
+          <img src = "{% static 'images/musicandaudio.jpg' %}" class = "d-block w-100 carousel-image" alt = "carousel-3">
+          <div class = "carousel-caption">
+            <h3>Music & Audio</h3>
+            <a class = "btn btn-primary my-3" href = "{{ category.get_absolute_url }}">Browse Services</a>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if category.name == 'Programming & Tech' %}
+        <div class = "carousel-item" data-bs-interval = "5000">
+          <img src = "{% static 'images/programmingandtech.jpg' %}" class = "d-block w-100 carousel-image" alt = "carousel-4">
+          <div class = "carousel-caption">
+            <h3>Programming & Tech</h3>
+            <a class = "btn btn-primary my-3" href = "{{ category.get_absolute_url }}">Browse Services</a>
+          </div>
+        </div>
+        {% endif %} 
+
+        {% if category.name == 'Video & Animation' %}
+        <div class = "carousel-item" data-bs-interval = "5000">
+          <img src = "{% static 'images/videoandanimation.jpg' %}" class = "d-block w-100 carousel-image" alt = "carousel-5">
+          <div class = "carousel-caption">
+            <h3>Video & Animation</h3>
+            <a class = "btn btn-primary my-3" href = "{{ category.get_absolute_url }}">Browse Services</a>
+          </div>
+        </div>
+        {% endif %} 
+
+        {% if category.name == 'Writing & Translation' %}
+        <div class = "carousel-item" data-bs-interval = "5000">
+          <img src = "{% static 'images/writingandtranslation.jpg' %}" class = "d-block w-100 carousel-image" alt = "carousel-6">
+          <div class = "carousel-caption">
+            <h3>Writing & Translation</h3>
+            <a class = "btn btn-primary my-3" href = "{{ category.get_absolute_url }}">Browse Services</a>
+          </div>
+        </div>
+        {% endif %} 
+        {% endfor %}
+      </div>
+      <button class = "carousel-control-prev" type = "button" data-bs-target = "#carouselExampleControls" data-bs-slide = "prev">
+        <span class = "carousel-control-prev-icon" aria-hidden = "true"></span>
+        <span class = "visually-hidden">Previous</span>
+      </button>
+      <button class = "carousel-control-next" type = "button" data-bs-target = "#carouselExampleControls" data-bs-slide = "next">
+        <span class = "carousel-control-next-icon" aria-hidden = "true"></span>
+        <span class = "visually-hidden">Next</span>
+      </button>
+  </div>
+  <br>
+  <img class = "mb-3" src = "{% static 'images/tenner_logo7.png' %}" alt = "logo" style = "height: 70px">
+  <h3 class="mb-5">The best <span style="font-style: italic; font-weight: bold;">freelance</span> service for you and your business</h3>
+  <div class="container my-5">
+    <div class="row my-5">
+      <div class="col-6">
+        <img src = "{% static 'images/landing-1.jpg' %}" class = "mw-100" alt = "landing1">
+      </div>
+      <div class="col text-start">
+        <h3 class = "fw-bold">Hire professionals</h3>
+        <p>Tenner is a website that allows you to hire professionals for any digital service you need.</p>
+        <p>Develop your business or website with ease with the help of our service providers.</p>
+        <p>Check out all of our available services&nbsp;<a class = "link-violet" href = "{% url 'services:all_services' %}">here</a></p>
+      </div>
+    </div>
+    <br>
+    <div class = "row my-5">
+      <div class = "col-6 text-start">
+        <h3 class = "fw-bold">Become a Provider</h3>
+        <p>If you are not interested in our services, you might be willing to provide a service instead.</p>
+        <p>There are numerous service providers, with varying skill levels and certifications.</p>
+        <p>Sign up and become a service provider&nbsp;<a class = "link-violet" href = "{% url 'signup' %}">here</a></p>
+      </div>
+      <div class="col-6">
+        <img src = "{% static 'images/landing-2.jpg' %}" class = "mw-100" alt = "landing2">
+      </div>
+    </div>
+    <br>
+    <div class = "row my-5">
+      <div class="col-6">
+        <img src = "{% static 'images/landing-3.jpg' %}" class = "mw-100" alt = "landing3">
+      </div>
+      <div class = "col-6 text-start">
+        <h3 class = "fw-bold">More Information</h3>
+        <p>Meet the&nbsp;<a class = "link-violet" href = "{% url 'team' %}">team</a> who brought this all together!</p>
+        <p>If there are any queries or issues with your experience with Tenner, do not hesitate to&nbsp;<a class = "link-violet" href = "{% url 'contact:contact_us' %}">contact us</a></p>
+      </div>
+    </div>
+  </div> 
+</main>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+    Advanced Search
+{% endblock %}
+
+{% block content %}
+<div>
+    <p class="text-center pt-3">You have used advanced filter search</p>
+    
+    {% include 'advanced_search_form.html' %}
+
+    {% if queryset.count > 0 %}
+        <p class="text-center mt-5">Results found: <b>{{ queryset.count }}</b></p>
+    {% endif %}
+</div>
+
+<div id="adv-search-result" class="container">
+    <div class="row mx-auto my-5">
+        {% for query in queryset %}
+        <div class="col-sm-12 col-md-6 col-lg-3 my-3">
+            <div class="card text-center">
+                <a class="card-img-top" href="{{ query.get_absolute_url }}">
+                    {% if query.image %}
+                        <img src="{{ query.image.url }}" alt="{{ query.name }}">
+                    {% else %}
+                        <img src="{% static 'images/no_image_placeholder.png' %}" alt="{{ query.name }}">
+                    {% endif %} 
+                </a>
+                <div class="card-body">
+                    <h5>{{ query.name }}</h5>
+                    <p>€{{ query.price | intcomma }}</p>
+                    <p>By: {{ query.provider }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+            <div class="row mx-auto">
+                <p class="text-center mb-5">Results found: <b>{{ queryset.count }}</b></p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

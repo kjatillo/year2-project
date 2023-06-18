@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+User Profile
+{% endblock title %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <p class="fw-bold text-primary mb-2">User Profile</p>
+                <h2 class="fw-bold">My details</h2>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-6 col-xl-4">
+                <div class="text-center mt-5">
+                    {% if profile.image %}
+                        <img class="w-50 rounded" src="{{ profile.image.url }}" alt="profile image">
+                    {% else %}
+                        <img class="w-50 rounded" src="{% static 'images/default_profile_pic.jpg' %}" alt="profile image">
+                    {% endif %}  
+                </div>
+                {% if profile.user.username == request.user.username %}
+                    <div class="d-flex mt-3 justify-content-center align-items-center mb-4">
+                        <a class="btn btn-primary" href="{% url 'edit_profile' user.username %}">Edit Profile</a>
+                    </div>
+                {% else %}
+                <div class="d-flex mt-3 justify-content-center align-items-center mb-4">
+                    <a class="btn btn-primary" href="{% url 'view_profile' user.username %}">Your profile</a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-4 col-xl-4 d-flex justify-content-center justify-content-xl-start">
+                <div class="d-flex flex-wrap flex-md-column justify-content-md-start align-items-md-start h-100">
+                    <div>
+                        <p><b>Username: </b>{{ profile.user.username }}</p>
+                        
+                        {% if profile.email and profile.first_name and profile.last_name %}
+                            <p><b>Email: </b>{{ profile.email }}</p>
+                            <p><b>Name: </b>{{ profile.first_name }} {{ profile.last_name }}</p>
+                        {% else %}
+                            <p><b>Email: </b>{{ profile.user.email }}</p>
+                            <p><b>Name: </b>{{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+                        {% endif %}
+                        
+                        <p><b>Account Type: </b>{{ profile.user.groups.all.0 }}</p>
+                        <p><b>Date Joined: </b>{{ profile.user.date_joined.date }}</p>
+                        <p><b>Last Login: </b>{{ profile.user.last_login }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

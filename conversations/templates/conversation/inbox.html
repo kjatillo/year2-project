@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Inbox
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-4 mb-lg-5">
+        <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <p class="fw-bold text-primary mb-2">Inbox</p>
+            <h2 class="fw-bold">Your messages</h2>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-xl-4">
+            <div class="card {% if not conversations %} border-0 {% endif %}">
+                <div id="inbox" class="card-body text-center d-flex flex-column align-items-center">
+                    {% for conversation in conversations %}
+                        <a href="{% url 'conversation:conversation_detail' conversation.id %}#latestMessage" >
+                            <div class="d-flex">
+                                <div class="w-25">
+                                    {% if conversation.service.image %}
+                                        <img src="{{ conversation.service.image.url }}" class="w-50 pt-1">
+                                    {% else %}
+                                        <img src="{% static 'images/default_service.png' %}" class="w-50 pt-1">
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    {% for member in conversation.members.all %}
+                                        {% if member != request.user %}
+                                            <p class="mb-2"><strong>{{ conversation.service.name }}</strong></p>
+                                            <p class="mb-4"><i>{{ member.username }}</i> | {{ conversation.modified_at }}</p>
+                                            
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </a>
+                    {% empty %}
+                        <div class="row mx-auto">
+                            <p class="text-center">You have no messages yet.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

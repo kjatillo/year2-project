@@ -1,0 +1,220 @@
+body {
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background: #fafafa;
+}
+
+/* Navigation */
+#mainNav {
+    border-bottom: solid violet 1px;
+    background: linear-gradient(#000000, #090909, #131313, #1a1a1a, #202020);
+}
+
+#mainNav .nav-link {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+#mainNav .active > a {
+    font-weight: bold;
+}
+
+#mainNav .navbar-nav .nav-link:hover {
+    color: violet;
+}
+
+/* Conversations */
+#inbox a {
+    color: black;
+    text-decoration: none;
+}
+
+#inbox a:hover {
+    color: violet;
+}
+
+/* Search */
+#search-result .card, #adv-search-result .card {
+	margin-bottom: 1em;
+	height: 325px;
+	-webkit-transition: all .3s;
+    -moz-transition: all .3s;
+	transition: all .3s;
+}
+
+#search-result .card img, #adv-search-result .card img {
+    height: 200px; 
+    width: 100%;
+	object-fit: cover;
+}
+
+#search-result .card .card-body h5, #adv-search-result .card .card-body h5 {
+    white-space: nowrap; 
+    width: 100%; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+	font-weight: bold;
+}
+
+#search-result .card:hover, #adv-search-result .card:hover {
+	transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    border-top: solid violet 1px;
+    background: linear-gradient(#000000, #090909, #131313, #1a1a1a, #202020);
+}
+
+footer h3, footer li {
+    padding-bottom: 16px;
+	color: lightslategray;
+}
+
+footer svg {
+    font-size: 1.25rem;
+}
+
+footer li a:link, footer li a:visited {
+    text-decoration: none;
+    color: #4E5D78;
+}
+
+footer li a:hover {
+    text-decoration: underline;
+}
+
+/****Cart Page****/
+.my_custom_table {
+	min-width: 400px;
+	font-size: 14px;
+}
+.my_custom_thead {
+	font-weight: normal;
+	text-transform: uppercase;
+	letter-spacing: .2em;
+	background-color: #f8f9fa!important;
+}
+.custom_image {
+	width: 100px;
+	height: 100px;
+}
+.custom_a {
+	text-decoration: none;
+}
+.custom_icon {
+	text-decoration: none;
+	color: #868e96 !important;
+}
+.my_custom_button {
+	margin-top: 5px;
+}
+
+/**** Services ****/
+.custom_link_text {
+	text-decoration: none;
+	color: black;
+}
+
+.custom_link_text:hover {
+	color: violet;
+}
+
+#service_card .custom_link_text:hover {
+	color: black;
+}
+
+#service_card {
+	transition: all 0.3s
+}
+
+#service_card:hover {
+	transform: scale(1.06);
+}
+
+#service_card h4 {
+    white-space: nowrap; 
+    width: 100%; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+/***Stripe Button***/
+.stripe-button-el, .my_custom_button {
+	width: 100% !important;
+	display: block !important;
+	background-color: #868e96 !important;
+	border: 0px !important;
+	background-image: none !important;
+}
+.stripe-button-el span {
+	display: block;
+	position: relative;
+	padding: 0px 12px;
+	height: 36px !important;
+	line-height: 36px !important;
+	font-family: 'Roboto', sans-serif !important;
+	font-size: 16px !important;
+	color: #fff !important;
+	background-image: none !important;
+	background: none !important;
+}
+
+
+/***Button/Form Accents***/
+.form-control:focus, .form-select:focus {
+	border-color: violet;
+    box-shadow: none;
+}
+
+.btn-primary {
+	background-color: black;
+	border-color: violet;
+	color: white;
+}
+
+.btn-primary:hover, .bg-primary, .dropdown-item:hover {
+    background-color: violet!important;
+    border-color: violet;
+	color: white;
+}
+
+.text-primary {
+    color: violet!important;
+}
+
+.link-violet, .link-violet:hover {
+    color: violet;
+    text-decoration: underline;
+}
+
+.dropdown-menu {
+	background: black;
+	border: violet solid 1px;
+	color: white;
+}
+
+.dropdown-item {
+	color: white;
+	padding: 10px;
+}
+
+@media screen and (max-width: 576px) {
+	.mt-sm-1 {
+		margin-top: 1em;
+	}
+}
+
+/***Scroll Top Button***/
+#scrollTop {
+	position: fixed;
+	right: 20px;
+	top: 85%;
+	padding: 5px 12px;
+	background-color: rgba(0,0,0,.25);
+	color: #fff;
+}
+
+#scrollTop:hover {
+	background-color: rgba(0,0,0,.5);
+	color: violet;
+}

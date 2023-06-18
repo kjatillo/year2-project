@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block metadescription %}
+    {{ service.description|truncatewords:155 }}
+{% endblock %}
+{% block title %}
+    {{ service.name }} - Tenner
+{% endblock %}
+{% block content %}
+
+    <div>
+        <div class="container fw-bold mx-auto p-5">
+            <p><a class="custom_a" href="{% url 'services:all_services' %}">All Services</a> | <a class="custom_a" href="{{ service.category.get_absolute_url }}">{{service.category}}</a> | {{ service.name }}</p>
+        </div>
+        <div class="container">
+            <br>
+            <div class="row">
+                <div class="col-12 col-sm-12 co-md-12 col-lg-6 text-center">
+                    <div style="min-width: 18rem;">
+                        <img src="{{service.image.url}}" alt="{{service.name}}" class="img-thumbnail">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6 align-self-center">
+                    <div class="card bg-white text-center p-5 align-items-center">
+                        <h1>{{service.name}}</h1>
+                        <p>€{{service.price | intcomma}}</p>
+                        <p>{{service.description}}</p>
+                        <p>By: <a class="custom_link_text" href="{% url 'view_profile' service.provider.username %}">{{service.provider}}</a></p>
+                        <br>
+                        {% if user == service.provider %}
+                            <p><a class="btn btn-secondary" href="{% url 'services:edit_service' service.id %}">Edit Service</a></p>
+                            <p><a class="btn btn-danger" href="{% url 'services:delete_service' service.id %}">Delete Service</a></p>
+                        {% else %}
+                            {% if service.job_limit == 0 %}
+                                <p><b>Out of Stock</b></p>
+                            {% else %}
+                                <div class="d-inline-block">
+                                    {% if user.is_authenticated %}
+                                    <a class="btn btn-primary me-2" href="{% url 'cart:add_cart' service.id %}">Add to Cart</a>
+                                    <a class="btn btn-primary ms-2" href="{% url 'conversation:new_conversation' service.id %}">Contact Provider</a>
+                                    {% else %} 
+                                    <a class="btn btn-primary me-2" href="{% url 'login' %}">Add to Cart</a>
+                                    <a class="btn btn-primary ms-2" href="{% url 'login' %}">Contact Provider</a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class = 'container'>
+            <div class = 'row'>
+                {% if user != service.provider %}
+                    <div class="card bg-white text-center p-5">
+                        <h2 class="fw-bold">Post your review below</h2>
+                        <br>
+                        <form action="{% url 'services:submit_review' service.id %}" method="POST">
+                            {% csrf_token %}
+                            <label>How would you rate this service?</label>
+                            <br>
+                            <div class="rate">
+                                <input type="radio" name="rating" id="rating5" value="5" required><label for="rating5" title="5"></label>
+                                <input type="radio" name="rating" id="rating4" value="4" required><label for="rating4" title="4"></label>
+                                <input type="radio" name="rating" id="rating3" value="3" required><label for="rating3" title="3"></label>
+                                <input type="radio" name="rating" id="rating2" value="2" required><label for="rating2" title="2"></label>
+                                <input type="radio" name="rating" id="rating1" value="1" required><label for="rating1" title="1"></label>
+                            </div>
+                            <br>
+
+                            <div>
+                                <p class="fw-bold">Subject:</p>
+                                <input type="text" class="form-control" name="subject">
+                                <br>
+                                <p class="fw-bold">Description:</p>
+                                <textarea name="review" class="form-control" rows="5"></textarea>
+                                <br>
+                                {% if user.is_authenticated %}
+                                    <input type="submit" class="btn btn-primary d-block w-10 my-4" value="Post Review">
+                                {% else %}
+                                    <h2 class="fw-bold">Please <a class="custom_a" href="{% url 'login' %}">log in</a> to post a review.</h2>
+                                {% endif %}
+                            </div>
+                        </form>
+                        {% include 'alerts.html' %}
+                    </div>
+                {% endif %}
+                <br>
+                <div class="card bg-white text-center p-5">
+                    <h2 class="fw-bold">Customer Reviews</h2>
+                    <h5 class="fw-bold">Average Rating: {{ average }}</h5>
+                </div>
+                {% for review in reviews %}
+                    <div class="card bg-white p-5">
+                        <div class="col-6">
+                            {% if review.user.profile.image %}
+                                <a class="custom_link_text fw-bold" href="{% url 'view_profile' review.user.username %}"><img src="{{review.user.profile.image.url}}" alt="{{review.user}}" class="rounded-circle" width="50"></a>
+                            {% else %}
+                                <a class="custom_link_text fw-bold" href="{% url 'view_profile' review.user.username %}"><img src="{% static 'images/default_profile_pic.jpg' %}" alt="{{review.user}}" class="rounded-circle" width="50"></a>
+                            {% endif %}
+                            <p><a class="custom_link_text fw-bold" href="{% url 'view_profile' review.user.username %}">{{review.user}}</a></p>
+                        </div>
+                        <div class="col-6">
+                            <h4>{{review.subject}}</h4>
+                            <div class="rating-star">
+                                <span>
+                                    <i class="fa fa-star{% if review.rating < 1 %}-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if review.rating < 2 %}-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if review.rating < 3 %}-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if review.rating < 4 %}-o {% endif %}" aria-hidden="true"></i>
+                                    <i class="fa fa-star{% if review.rating < 5 %}-o {% endif %}" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <p>{{review.review}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

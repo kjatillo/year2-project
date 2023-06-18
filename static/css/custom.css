@@ -1,0 +1,111 @@
+/***Rating Stars***/
+.rate > input{
+    display: none;
+}
+
+.rate{
+    display: inline-block;
+    border: 0;
+}
+
+.rate > label{
+    float: right;
+}
+
+.rate > label:before{
+    display: inline-block;
+    padding: 0.5rem .3rem;
+    margin: 0;
+    font-size: 1.1rem;
+    content: "\f005";
+    font-family: FontAwesome;
+    cursor: pointer;
+}
+
+input:not(:checked) ~ .rate label:hover,
+input:not(:checked) ~ .rate label:hover ~ label {
+    color: gold;
+}
+
+.rate > input:checked ~ label {
+    color: gold;
+}
+
+.rating-star i{
+    color: gold;
+}
+
+/***Team***/
+.bio-container {
+    background-color: #0000;
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px; 
+}
+
+.bio-int-container {
+    background-color: #0000;
+    display: flex;
+    flex: 1; 
+    margin: 30px;
+}
+
+.bio-card { 
+    height: auto; 
+    transform-style: preserve-3d;
+    transition: all 3s;
+    width: 100%;
+}
+
+.bio-card:hover {
+    transform: rotateY(
+      180deg
+    );
+}
+
+.card-front {
+    background: #0000; 
+    height: 100%;
+    width: 100%;
+}
+
+.card-front img {
+    height: 100%;
+    width: 100%;
+}
+
+.card-back {
+    backface-visibility: hidden;
+    background: linear-gradient(#000000, #090909, #131313, #1a1a1a, #202020); 
+    border: violet 3px solid;
+    color: lightgray;
+    font-size: 75%; 
+    height: 100%;
+    padding: 15px; 
+    position: absolute;  
+    top: 0;
+    transform: rotateY(
+        180deg
+    );
+    width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+    .bio-container {
+        flex-direction: column;
+    }
+}
+
+.logo-size {
+	height: 2.3rem;
+}
+
+.carousel-image {
+    height: 680px;
+}
+
+.linkedin-position {
+    bottom: 0;
+    position: absolute;
+
+}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block metadescription %}
+{% endblock %}
+{% block title %}
+    Your Services
+{% endblock %}
+{% block content %}
+    <div class="p-5">
+        <h1 class="text-center">Your Services</h1>
+    </div>
+    <div class="container">
+        <div class="row g-3 mx-auto">
+            {% for service in services %}
+                {% if user == service.provider %}
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card text-center" id="service_card" style="height: 330px;">
+                            <a class ="custom_link_text" href="{{service.get_absolute_url}}">
+                            <img class="card-img-top w-100" style="height: 200px; object-fit: cover;" src="{{service.image.url}}" alt="{{service.name}}">
+                            <div class="card-body h-50">
+                                <h4 class="fw-bold card-title">{{service.name}}</h4>
+                                <p>€{{service.price | intcomma}}</p>
+                                <p>By: {{service.provider}}</p>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="mx-auto">
+            {% if services.paginator.num_pages > 1 %}
+                <hr>
+                <div class="text-center">
+                    {% for pg in services.paginator.page_range %}
+                        <a href="?page={{pg}}" class="btn btn-light btn-sm {% if services.number == pg %}active{% endif %}">{{pg}}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <br>
+    </div>
+{% endblock %}

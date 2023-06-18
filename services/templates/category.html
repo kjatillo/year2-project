@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block metadescription %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ category.name }}
+    {% else %}
+        All Services
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if category %}
+        <div>
+            <div class="container fw-bold mx-auto p-5">
+                <p><a class="custom_a" href="{% url 'services:all_services' %}">All Services</a> | {{category.name}}</p>
+            </div>
+        </div>
+        <div>
+            <h1 class="text-center fw-bold">{{ category.name }}</h1>
+            <p class="text-center">Browse our {{ category.name }} services</p>
+            <br>
+        </div>
+    {% else %}
+        <div class="p-5">
+            <h1 class="text-center fw-bold p-5">All Services</h1>
+        </div>
+    {% endif %}
+    <div class="container">
+        <div class="row g-3 mx-auto">
+            {% for service in services %}
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card " id="service_card" style="height: 330px;">
+                        <a class ="custom_link_text" href="{{service.get_absolute_url}}">
+                        <img class="card-img-top w-100" style="height: 200px; object-fit: cover;" src="{{service.image.url}}" alt="{{service.name}}">
+                        <div class="card-body text-center h-50">
+                            <h4 class="fw-bold card-title">{{service.name}}</h4>
+                            <p>€{{service.price | intcomma}}</p>
+                            <p>By: {{service.provider}}</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="mx-auto">
+            {% if services.paginator.num_pages > 1 %}
+                <hr>
+                <div class="text-center">
+                    {% for pg in services.paginator.page_range %}
+                        <a href="?page={{pg}}" class="btn btn-light btn-sm {% if services.number == pg %}active{% endif %}">{{pg}}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <br>
+    </div>
+{% endblock %}

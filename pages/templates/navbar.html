@@ -1,0 +1,103 @@
+{% load auth_extras %}
+{% load static %}
+
+<nav class="navbar navbar-dark navbar-expand-md sticky-top navbar-shrink py-3" id="mainNav">
+    <div class="container">
+        <a class = "me-3" href = "/"><img src = "{% static 'images/tenner_logo7.png' %}" class = "w-100 logo-size" alt = "logo"></a>
+        <div id="search-bar">
+            <form action="{% url 'search:search_result' %}" method="GET" style="width: 100%;">
+                <div class="input-group">
+                    <input type="search" class="form-control" placeholder="Search for services" aria-label="Search"
+                        name="q">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">Services</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'services:all_services' %}">All Services</a></li>
+                            {% for category in category_links %}
+                                <li><a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'team' %}">Team</a></li>     
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact:contact_us' %}">Contact Us</a></li>
+            </ul>
+
+            <ul class="navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <div class="d-flex align-items-center">
+                    {% if item_count > 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                            <i class="fas fa-shopping-cart"></i>&nbsp;Cart ({{item_count}})
+                    </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                            <i class="fas fa-shopping-cart"></i>&nbsp;Cart
+                        </a>
+                    </li>
+                    {% endif %}
+                </div>
+                    <li class="nav-item">
+                        <li class="nav-item dropdown">
+                            {% if user.profile.image %}
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                                <img class="rounded-circle" src="{{ user.profile.image.url }}" width="36px;" alt="User profile image">
+                            </a>
+                            {% else %}
+                            <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">
+                                <img class="rounded-circle" src="{% static 'images/default_profile_pic.jpg' %}" width="36px;" alt="User profile image">
+                            </a>
+                            {% endif %}
+                        <ul class="dropdown-menu"">
+                            {% if user|has_group:'Service Provider' %}
+                                <li><a class="dropdown-item" href="{% url 'services:service_provider' %}">Your Services</a></li>
+                                <li><a class="dropdown-item" href="{% url 'services:post_service' %}">Post Service</a></li>
+                            {% endif %}
+
+                            {% if user.profile %}
+                                <li><a class="dropdown-item" href="{% url 'order:order_history' %}">Orders</a></li>
+                                <li><a class="dropdown-item" href="{% url 'conversation:inbox' %}">Inbox</a></li>
+                                <hr class="my-1">
+                                <li><a class="dropdown-item" href="{% url 'view_profile' user.username %}">View Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'edit_profile' user.username %}">Edit Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
+                                <li><a class="dropdown-item" href="{% url 'account_delete' user.pk %}">Delete Account</a></li>
+                                <hr class="my-1">
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            {% else %}
+                                <li><a class="dropdown-item" href="{% url 'order:order_history' %}">Orders</a></li>
+                                <li><a class="dropdown-item" href="{% url 'conversation:inbox' %}">Inbox</a></li>
+                                <hr class="my-1">
+                                <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
+                                <li><a class="dropdown-item" href="{% url 'account_delete' user.pk %}">Delete Account</a></li>
+                                <hr class="my-1">
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                            {% endif %}
+                        </ul>
+                        </li>
+                    </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <i class="fas fa-shopping-cart"></i>
+                    Cart</a>
+                </li>
+                    <a class="nav-link mx-2" href="{% url 'login' %}">Log in</a></li>
+                    <a class="btn btn-primary fw-bold"role="button" href="{% url 'signup' %}">Sign Up</a>
+                {% endif %}                
+            </ul> 
+        </div>
+    </div>
+</nav>

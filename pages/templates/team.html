@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Team
+{% endblock %}
+
+{% block content %}
+    <div class = "d-flex justify-content-center row py-5 text-center">
+        <h3>Meet Our Team</h3>
+        <div class="bio-container my-3">
+            <div class="bio-int-container d-block inline">
+                <div class="bio-card">
+                    <div class="card-front">
+                        <img class = "img-thumbnail" src="{% static 'images/rob.jpg' %}" style = "height: 300px">
+                    </div>
+                    <div class="card-back">
+                        <h5>Robbie Imperial</h5>
+                        <p>Hey! :D My name is Rob, and I was tasked to do the cart and pages app, and most of the styling of the website! Looks nice doesn't it?</p>
+                        <p>My hobbies include playing video games, reading and playing guitar.</p>
+                        <p class = "linkedin-position">Visit my Linkedin: </p>
+                    </div>
+                </div>
+                <a class="btn btn-primary mt-2"role="button" href="https://www.linkedin.com/in/imperial-robbie">Robbie Imperial</a>
+            </div>
+
+            <div class="bio-int-container d-block inline">
+                <div class="bio-card">
+                    <div class="card-front">
+                        <img class = "img-thumbnail" src="{% static 'images/irene.jpg' %}" style = "height: 300px">
+                    </div>
+
+                    <div class="card-back">
+                        <h5>Irene Ogbevoen</h5>
+                        <p>Hi my name is Irene! :3 I was tasked to create the service and order apps on this website! I also created the different services available, hope you enjoy them!</p>
+                        <p>My hobbies include playing video games, hanging out with my friends and baking.</p>
+                        <p class = "linkedin-position">Visit my Linkedin: </p>
+                    </div>
+                </div>
+                <a class="btn btn-primary mt-2"role="button" href="https://www.linkedin.com/in/irene-ogbevoen-1a36ba253">Irene Ogbevoen</a>
+            </div>
+
+            <div class="bio-int-container d-block inline">
+                <div class="bio-card">
+                    <div class="card-front">
+                        <img class = "img-thumbnail" src="{% static 'images/ken.jpg' %}" style = "height: 300px">
+                    </div>
+
+                    <div class="card-back">
+                        <h5>Keneith Atillo</h5>
+                        <p>Hello! My name is Ken and I was tasked to create the accounts and search apps, and I did the majority of the testing! There are a few optional features I added too!</p>
+                        <p>My hobbies include hanging with my mates, coding and playing video games.</p>
+                        <p class = "linkedin-position">Visit my Linkedin: </p>
+                    </div>
+                </div>
+                <a class="btn btn-primary mt-2"role="button" href="https://www.linkedin.com/in/keneithatillo">Keneith Atillo</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

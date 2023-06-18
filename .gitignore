@@ -1,0 +1,16 @@
+env 
+.venv 
+env/ 
+venv/ 
+ENV/ 
+env.bak/ 
+venv.bak/
+
+# Web drivers
+chromedriver.exe
+
+# Publishable Key
+pk_test_51MhA8ABHXs48lDZIqumI7UN12ktM8jzFNqlrQFGzJmrONdNBCs8tS7mFseHsu3JCxCfyQwUGxmjq6zLXhqhMLh9T006qFTJCoM
+
+# Secret Key
+sk_test_51MhA8ABHXs48lDZIlMeMsGYsMtpx9H886FpyFKIQB3GX6DQZN9WKtPbtjpeT0w5wnd2nvZHHM0ruTzQRqJQiWrRl00aekWy1Lq

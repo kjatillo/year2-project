@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Thanks - Tenner
+{% endblock %}
+{% block content %}
+    <div>
+        <div class="text-center">
+            <br>
+            <br>
+            <h1 class="text-center">
+                Your order has been confirmed!
+            </h1>
+            <br>
+            <br>
+            <p>Your order number is: <b>{{ customer_order.id }}</b></p>
+            <br>
+            <p>
+                Your service provider has received your order and will begin processing as soon as possible. 
+                For your records, an email confirmation has been sent to you.
+                Thank you for choosing Tenner!
+            </p>
+        </div>
+    </div>
+    <br>
+    <br>
+{% endblock %}
